@@ -14,33 +14,25 @@
 // WHEN I click on a city in the search history
 // THEN I am again presented with current and future conditions for that city
 
-//HTML
-    // Header
-    // Aside
-        // Form
-            // Title
-            // Input Field 
-            // Search Button
-        // Div/Section etc.
-            // Append search information from input field above
-    // Div/Container (can add classes for spacing)
-        //Create multiple divs to allow for content to be appended to
-// CSS
-    // can use framework/bootstrap or own CSS
 // JavaScript (most of acceptance criteria done here)
     // global variables:
         // variable that saves the list of cities
-            // ex: var cities = []
+            var cities = [];
 
         // variable that stores API key (NOTE: This is not standard practice, but needed for this project)
-            // ex: var apiKey = ""...."
+            var apiKey = "a92822d61b314348f615f16c6e001a99";
 
         // query selectors to append the returned information
-            // ex: var currentDay
+            // ex: var currentDay (where the current day will be appended)
+            var localWeather = document.querySelector("#local-weather");
             // ex: var searchHistory/cityList etc.
+            var searchHistory = document.querySelector("#search-history");
             // ex: var input (for text field in the form)
-            // ex: var form (for the input form itself)
+            var cityInput = document.querySelector("#city-input");
+            var searchButton = document.querySelector("#search-button");
             // ex: var 5DayForecast (where the forecast will be appended)
+            var fiveDayForecast = document.querySelector("#five-day-forecast");
+            var today = daysj().format("MM/DD/YYYY");
     // functions: 
         // gets the information from Local Storage and saves it to array
             // check for data saved already (not null)
