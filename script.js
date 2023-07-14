@@ -33,50 +33,61 @@ var searchButton = document.querySelector("#search-button");
             // ex: var 5DayForecast (where the forecast will be appended)
 var fiveDayForecast = document.querySelector("#five-day-forecast");
 
-    // functions: 
-        // gets the information from Local Storage and saves it to array
+    // functions:
+        //gets information from localstorage and save it to array
         function getLocalStorage() {
-            // check for data saved already (not null)
-            if (localStorage.getItem("cities") !== null) {
-                // if data is saved, set cities array to the saved data
-                cities = JSON.parse(localStorage.getItem("cities"));
-                // clear current buttons (target parent div and clear information if there already)
-                searchHistory.innerHTML = "";
-                // loop over cities and generate elements on the page (can sort if wanted, not required)
-                for (var i = 0; i < cities.length; i++) {
-                    // conditional statement to check for null, and if null do nothing
-                    if (cities[i] == null) {
-                        // do nothing
-                    }
-                    //if data is stored, add saved data to the array
-                    cities.push(cityInput.value);
-                    //call generate button function
-                    generateButton();
-            }
-        }}
+            var storedCities = JSON.parse(localStorage.getItem("cities"));
+            //check for saved information in local storage
+            if (storedCities !== null) {
+                //if there is saved information, set the cities array to the saved information
+                cities = storedCities;
+            } 
+            //if there is no saved information, do nothing
+            //call the generate button function
+            generateButton();
+        }
         
-                    // if null, do nothing (as there is nothing to create)
-                        // if data is stored, set global variable of searchHistory to include saved data
-                            // call generate button function
 
         // generate button (saved cities in search history)
+        function generateButton() {
             // clear current buttons (target parent div and clear information if there already)
+            searchHistory.innerHTML = "";
             // loop over cities and generate elements on the page (can sort if wanted, not required)
+            for (var i = 0; i < cities.length; i++) {
+                // create button element
+                var cityButton = document.createElement("button");
+                // add class to button
+                cityButton.classList.add("btn", "btn-secondary", "btn-block", "city-button");
+                // add text to button
+                cityButton.textContent = cities[i];
+                // append button to parent div
+                searchHistory.appendChild(cityButton);
+            }
+        }
 
-        // needs event listener that calls the function to display the weather data 
-            // target the "search button"
-            // create variable that holds the input
-            // preventDefault()
+        // needs event listener that calls the function to display the weather data
+        searchButton.addEventListener("click", function(event) {
+            //create variable that holds the input
+            var city = cityInput.value.trim();
+            event.preventDefault();
             // validate the text field has information
-                // conditional statement
-                    // if text is entered, pull and display weather data
-                        // if no text is entered, alert saying "please enter a city"
+            if (city === "") {
+                alert("Please enter a city");
+                // return to stop the function if the text field is empty
+                return;
+            // if the text field has information, run the function to get the weather data
+            } else {
+                getWeatherData(city);
+            }
             // save input data to the array
-                // save to the array defined earlier
-                    // arrayname.push (sends to the array)
-                    // save to localStorage so the information persists upon refresh
-                    // generateButton to re-render buttons on the aside
-                    // call "fetch data function", pass the city searched to the "fetch data function"
+            cities.push(city);
+            // save the array to local storage
+            localStorage.setItem("cities", JSON.stringify(cities));
+            // call the generate button function
+            generateButton();
+            // call the fetch data function, passing the city searched
+            getWeatherData(city);
+        });
         
         // fetch call to pull city weather information and display
             // create variable with API that we are searching for
