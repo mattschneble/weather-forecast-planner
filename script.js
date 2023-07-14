@@ -35,10 +35,27 @@ var fiveDayForecast = document.querySelector("#five-day-forecast");
 
     // functions: 
         // gets the information from Local Storage and saves it to array
+        function getLocalStorage() {
             // check for data saved already (not null)
-                // localStorage.getItem
-                    // conditional statement to check for null
-                        // if null, do nothing (as there is nothing to create)
+            if (localStorage.getItem("cities") !== null) {
+                // if data is saved, set cities array to the saved data
+                cities = JSON.parse(localStorage.getItem("cities"));
+                // clear current buttons (target parent div and clear information if there already)
+                searchHistory.innerHTML = "";
+                // loop over cities and generate elements on the page (can sort if wanted, not required)
+                for (var i = 0; i < cities.length; i++) {
+                    // conditional statement to check for null, and if null do nothing
+                    if (cities[i] == null) {
+                        // do nothing
+                    }
+                    //if data is stored, add saved data to the array
+                    cities.push(cityInput.value);
+                    //call generate button function
+                    generateButton();
+            }
+        }}
+        
+                    // if null, do nothing (as there is nothing to create)
                         // if data is stored, set global variable of searchHistory to include saved data
                             // call generate button function
 
