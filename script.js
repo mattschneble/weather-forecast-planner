@@ -17,22 +17,22 @@
 // JavaScript (most of acceptance criteria done here)
     // global variables:
         // variable that saves the list of cities
-            var cities = [];
+var cities = [];
 
         // variable that stores API key (NOTE: This is not standard practice, but needed for this project)
-            var apiKey = "a92822d61b314348f615f16c6e001a99";
-
+var apiKey = "a92822d61b314348f615f16c6e001a99";
+var today = daysj().format("MM/DD/YYYY");
         // query selectors to append the returned information
             // ex: var currentDay (where the current day will be appended)
-            var localWeather = document.querySelector("#local-weather");
+var localWeather = document.querySelector("#local-weather");
             // ex: var searchHistory/cityList etc.
-            var searchHistory = document.querySelector("#search-history");
+var searchHistory = document.querySelector("#search-history");
             // ex: var input (for text field in the form)
-            var cityInput = document.querySelector("#city-input");
-            var searchButton = document.querySelector("#search-button");
+var cityInput = document.querySelector("#city-input");
+var searchButton = document.querySelector("#search-button");
             // ex: var 5DayForecast (where the forecast will be appended)
-            var fiveDayForecast = document.querySelector("#five-day-forecast");
-            var today = daysj().format("MM/DD/YYYY");
+var fiveDayForecast = document.querySelector("#five-day-forecast");
+
     // functions: 
         // gets the information from Local Storage and saves it to array
             // check for data saved already (not null)
