@@ -95,7 +95,7 @@ function displayWeatherConditions(weatherConditions) {
     localWeatherContainer.appendChild(currentWindSpeedEl);
 }
 
-//create function to get the five day forecast
+//create function to get the five day forecast weather conditions using the latitude and longitude
 function getFiveDayForecast(weatherForecast) {
     //create the URL to get the five day forecast
     var getFiveDayForecastURL = "https://api.openweathermap.org/data/2.5/forecast?" + lat + "&lon=" + lon + "&appid=" + apiKey;
@@ -116,4 +116,51 @@ function getFiveDayForecast(weatherForecast) {
     }).catch(function(error) {
         alert('Unable to retrieve five day forecast for ' + city + "due to bad API connection. Please try again later.");
     });
+}
+
+//create function to display the five day forecast
+function displayFiveDayForecast(weatherForecast) {
+    //declare variables to hold the retruned weather forecast still to be displayed
+    var forecast = weatherForecast.list[0];
+    var forecastCity = forecast.name;
+    var forecastTemp = forecast.main.temp;
+    var forecastHumidity = forecast.main.humidity;
+    var forecastWindSpeed = forecast.wind.speed;
+    var forecastIcon = forecast.weather[0].icon;
+
+    //create the elements to display the data
+    var forecastCityEl = document.createElement("h4");
+    var forecastIconEl = document.createElement("img");
+    var forecastTempEl = document.createElement("p");
+    var forecastHumidityEl = document.createElement("p");
+    var forecastWindSpeedEl = document.createElement("p");
+
+    //convert the weather forecast to text
+    forecastCityEl.textContent = forecastCity + " (" + todayDate + ")";
+    forecastIconEl.src = "https://openweathermap.org/img/w/" + forecastIcon + ".png";
+    forecastIconEl.alt = "Weather forecast icon";
+    forecastTempEl.textContent = "Temperature: " + forecastTemp + " °F";
+    forecastHumidityEl.textContent = "Humidity: " + forecastHumidity + "%";
+    forecastWindSpeedEl.textContent = "Wind Speed: " + forecastWindSpeed + " MPH";
+
+    //append the elements to the five day forecast container
+    fiveDayForecastContainer.appendChild(forecastCityEl);
+    fiveDayForecastContainer.appendChild(forecastIconEl);
+    fiveDayForecastContainer.appendChild(forecastTempEl);
+    fiveDayForecastContainer.appendChild(forecastHumidityEl);
+    fiveDayForecastContainer.appendChild(forecastWindSpeedEl);
+}
+
+//create function to save the city to local storage
+function saveCity() {
+    //create the city object
+    var cityObject = {
+        city: city,
+        lat: lat,
+        lon: lon
+    };
+    //push the city object to the city array
+    cityArray.push(cityObject);
+    //save the city array to local storage
+    localStorage.setItem("cityArray", JSON.stringify(cityArray));
 }
