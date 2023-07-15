@@ -185,24 +185,19 @@ function loadSavedCities() {
     }
 }
 
-//add event listener to the search button within the city search form
-citySearchForm.addEventListener("submit", function(event) {
-    //prevent the page from reloading
-    event.preventDefault();
-    //get the city name from the input field
-    var searchCity = citySearchInput.value.trim();
-    //if the city name is not empty, display the city
-    if (searchCity) {
-        displayCity(searchCity);
-        //clear the input field
-        citySearchInput.value = "";
-    } else {
-        alert("Please enter a city name.");
-    }
+//add event listener to the window to wait to run the function until the DOM is fully loaded
+window.addEventListener("DOMContentLoaded", function() {
+    //add event listener to the search button
+    searchButton.addEventListener("click", function() {
+        //get the city name from the input field
+        city = searchInput.value;
+        //display the city
+        displayCity(city);
+    });
 });
 
 //add event listener to the saved cities to reload information
-search-history-list.addEventListener("click", function(event) {
+searchHistory.addEventListener("click", function(event) {
     //get the city name from the event
     var city = event.target.textContent;
     //display the city
