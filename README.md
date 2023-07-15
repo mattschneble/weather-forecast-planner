@@ -40,4 +40,4 @@ Throughout the development of this program I was able to develop my JavaScript, 
 
 ## Credits
 
- I would like to thank Kyle Vance for leading a pseudocode session, as well as some of my classmates including Chris Larson, Virginia Freitas and Ryan Pane for asking relevant questions during the session. I would also like to thank Jerremy from AskBCS for helping me with multiple issues that I ran into. Lastly, I would like to thank Ross Fahan for offering assistance and being willing to aid my throughout my issues. All code was entered by myself. 
+ I would like to thank Kyle Vance for leading a pseudocode session, as well as some of my classmates including Chris Larson, Virginia Freitas and Ryan Pane for asking relevant questions during the session. I would also like to thank Jerremy from AskBCS for helping me with multiple issues that I ran into. Lastly, I would like to thank Ross Fahan for offering assistance and being willing to aid my throughout my issues even though we did not connect. All code was entered by myself. 
