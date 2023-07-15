@@ -14,7 +14,7 @@ var fiveDayForecast = document.querySelector("#five-day-forecast");
 //create function to search for a given city
 function searchCity(cityInput) {
     //create the URL to search for the city
-    var searchCityURL = "https://api.openweathermap.org/geo/1.0/direct?q="+cityInput+"{state code},{country code}&limit=3&appid=" + apiKey;
+    var searchCityURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + cityInput.value + "&appid=a92822d61b314348f615f16c6e001a9";
 //use fetch to get the data from the API
     fetch(searchCityURL)
     //convert a successful response to JSON
@@ -26,11 +26,11 @@ function searchCity(cityInput) {
             });
             //if the response is not ok, alert the user
         } else {
-            alert('Unable to retrieve weather conditions for ' + cityInput);
+            alert('Unable to retrieve weather conditions for ' + cityInput + ' at call 1. Please try again later.');
         }
         //if the fetch fails, alert the user
     }).catch(function(error) {
-        alert('Unable to retrieve weather conditions for ' + cityInput + "due to bad API connection at call 1. Please try again later.");
+        alert('Unable to retrieve weather conditions for ' + cityInput + " due to bad API connection at call 1. Please try again later.");
     });
 }
 
@@ -188,7 +188,7 @@ function loadSavedCities() {
 window.addEventListener("DOMContentLoaded", function() {
     //add event listener to the search button
     searchButton.addEventListener("click", function() {
-        searchCity(cityInput);
+        searchCity(cityInput.value);
     });
 });
 
@@ -197,5 +197,5 @@ searchHistory.addEventListener("click", function(event) {
     //get the city name from the event
     var city = event.target.textContent;
     //display the city
-    searchCity(cityInput);
+    searchCity(cityInput.value);
 });
