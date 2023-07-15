@@ -57,3 +57,17 @@ function retrieveWeatherConditions(lat, lon) {
         alert('Unable to retrieve weather conditions for ' + city + "due to bad API connection. Please try again later.");
     });
 }
+
+//create function to display the weather conditions
+function displayWeatherConditions(weatherConditions) {
+    //clear the local weather container of any previous data in both local weather and five day forecast
+    localWeatherContainer.innerHTML = "";
+    fiveDayForecastContainer.innerHTML = "";
+
+    //declare variables to hold the data to be displayed
+    var currentConditions = weatherConditions.list[0];
+    var currentCity = currentConditions.name;
+    var currentTemp = currentConditions.main.temp;
+    var currentHumidity = currentConditions.main.humidity;
+    var currentWindSpeed = currentConditions.wind.speed;
+    var conditionsIcon = currentConditions.weather[0].icon;
