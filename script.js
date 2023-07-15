@@ -1,14 +1,14 @@
 //declare needed global variables
 var cities = [];
 var apiKey = "a92822d61b314348f615f16c6e001a99";
-var todayDate = daysj().format("MM/DD/YYYY");
 var localCity;
 //declare DOM variables
 var localWeatherContainer = document.querySelector("#local-weather-container");
 var localWeather = document.querySelector("#local-weather");
 var searchHistory = document.querySelector("#search-history");
 var cityInput = document.querySelector("#city-input");
-var searchButton = document.querySelector("#search-button");
+var citySearchForm = document.querySelector("#city-search-form");
+var searchButton = document.getElementById("search-button");
 var fiveDayForecastContainer = document.querySelector("#five-day-forecast-container");
 var fiveDayForecast = document.querySelector("#five-day-forecast");
 
@@ -163,4 +163,48 @@ function saveCity() {
     cityArray.push(cityObject);
     //save the city array to local storage
     localStorage.setItem("cityArray", JSON.stringify(cityArray));
+    //append the city to the saved cities list
+    var savedCityEl = document.createElement("li");
+    savedCityEl.textContent = city;
+    search-history-list.appendChild(savedCityEl);
 }
+
+//create function to load the city from local storage
+function loadSavedCities() {
+    //get the city array from local storage
+    var cityArray = JSON.parse(localStorage.getItem("cityArray"));
+    //if the city array is not empty, load the city
+    if (cityArray) {
+        city = cityArray[cityArray.length - 1].city;
+        lat = cityArray[cityArray.length - 1].lat;
+        lon = cityArray[cityArray.length - 1].lon;
+        //create button to display the city and append to the saved city list
+        var savedCityEl = document.createElement("li");
+        savedCityEl.textContent = city;
+        search-history-list.appendChild(savedCityEl);
+    }
+}
+
+//add event listener to the search button within the city search form
+citySearchForm.addEventListener("submit", function(event) {
+    //prevent the page from reloading
+    event.preventDefault();
+    //get the city name from the input field
+    var searchCity = citySearchInput.value.trim();
+    //if the city name is not empty, display the city
+    if (searchCity) {
+        displayCity(searchCity);
+        //clear the input field
+        citySearchInput.value = "";
+    } else {
+        alert("Please enter a city name.");
+    }
+});
+
+//add event listener to the saved cities to reload information
+search-history-list.addEventListener("click", function(event) {
+    //get the city name from the event
+    var city = event.target.textContent;
+    //display the city
+    displayCity(city);
+});
