@@ -64,10 +64,56 @@ function displayWeatherConditions(weatherConditions) {
     localWeatherContainer.innerHTML = "";
     fiveDayForecastContainer.innerHTML = "";
 
-    //declare variables to hold the data to be displayed
+    //declare variables to hold the retruned weather conditions still to be displayed
     var currentConditions = weatherConditions.list[0];
     var currentCity = currentConditions.name;
     var currentTemp = currentConditions.main.temp;
     var currentHumidity = currentConditions.main.humidity;
     var currentWindSpeed = currentConditions.wind.speed;
     var conditionsIcon = currentConditions.weather[0].icon;
+
+    //create the elements to display the data
+    var currentCityEl = document.createElement("h4");
+    var conditionsIconEl = document.createElement("img");
+    var currentTempEl = document.createElement("p");
+    var currentHumidityEl = document.createElement("p");
+    var currentWindSpeedEl = document.createElement("p");
+
+    //convert the weather conditions to text
+    currentCityEl.textContent = currentCity + " (" + todayDate + ")";
+    conditionsIconEl.src = "https://openweathermap.org/img/w/" + conditionsIcon + ".png";
+    conditionsIconEl.alt = "Weather conditions icon";
+    currentTempEl.textContent = "Temperature: " + currentTemp + " °F";
+    currentHumidityEl.textContent = "Humidity: " + currentHumidity + "%";
+    currentWindSpeedEl.textContent = "Wind Speed: " + currentWindSpeed + " MPH";
+
+    //append the elements to the local weather container
+    localWeatherContainer.appendChild(currentCityEl);
+    localWeatherContainer.appendChild(conditionsIconEl);
+    localWeatherContainer.appendChild(currentTempEl);
+    localWeatherContainer.appendChild(currentHumidityEl);
+    localWeatherContainer.appendChild(currentWindSpeedEl);
+}
+
+//create function to get the five day forecast
+function getFiveDayForecast(weatherForecast) {
+    //create the URL to get the five day forecast
+    var getFiveDayForecastURL = "https://api.openweathermap.org/data/2.5/forecast?" + lat + "&lon=" + lon + "&appid=" + apiKey;
+    //use fetch to get the data from the API
+    fetch(getFiveDayForecastURL)
+    //convert a successful response to JSON
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function(weatherForecast) {
+                //use the returned data to display the five day forecast
+                displayFiveDayForecast(weatherForecast);
+            });
+            //if the response is not ok, alert the user
+        } else {
+            alert('Unable to retrieve five day forecast for ' + city);
+        }
+        //if the fetch fails, alert the user
+    }).catch(function(error) {
+        alert('Unable to retrieve five day forecast for ' + city + "due to bad API connection. Please try again later.");
+    });
+}
