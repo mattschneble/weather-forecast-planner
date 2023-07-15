@@ -1,21 +1,20 @@
 //declare needed global variables
-var cities = [];
+var cityArray = [];
 var apiKey = "a92822d61b314348f615f16c6e001a99";
-var localCity;
 //declare DOM variables
 var localWeatherContainer = document.querySelector("#local-weather-container");
 var localWeather = document.querySelector("#local-weather");
-var searchHistory = document.querySelector("#search-history");
-var cityInput = document.querySelector("#city-input");
+var searchHistory = document.querySelector("#city-search-history");
+var cityInput = document.getElementById("city-input");
 var citySearchForm = document.querySelector("#city-search-form");
-var searchButton = document.getElementById("search-button");
+var searchButton = document.getElementById("city-search-button");
 var fiveDayForecastContainer = document.querySelector("#five-day-forecast-container");
 var fiveDayForecast = document.querySelector("#five-day-forecast");
 
 //create function to search for a given city
-function searchCity(city) {
+function searchCity(cityInput) {
     //create the URL to search for the city
-    var searchCityURL = "https://api.openweathermap.org/geo/1.0/direct?q=" + city + "{state code},{country code}&limit=3&appid=" + apiKey;
+    var searchCityURL = "https://api.openweathermap.org/geo/1.0/direct?q="+cityInput+"{state code},{country code}&limit=3&appid=" + apiKey;
 //use fetch to get the data from the API
     fetch(searchCityURL)
     //convert a successful response to JSON
@@ -27,11 +26,11 @@ function searchCity(city) {
             });
             //if the response is not ok, alert the user
         } else {
-            alert('Unable to retrieve weather conditions for ' + city);
+            alert('Unable to retrieve weather conditions for ' + cityInput);
         }
         //if the fetch fails, alert the user
     }).catch(function(error) {
-        alert('Unable to retrieve weather conditions for ' + city + "due to bad API connection. Please try again later.");
+        alert('Unable to retrieve weather conditions for ' + cityInput + "due to bad API connection at call 1. Please try again later.");
     });
 }
 
@@ -50,11 +49,11 @@ function retrieveWeatherConditions(lat, lon) {
             });
             //if the response is not ok, alert the user
         } else {
-            alert('Unable to retrieve weather conditions for ' + city);
+            alert('Unable to retrieve weather conditions for ' + cityInput);
         }
         //if the fetch fails, alert the user
     }).catch(function(error) {
-        alert('Unable to retrieve weather conditions for ' + city + "due to bad API connection. Please try again later.");
+        alert('Unable to retrieve weather conditions for ' + cityInput + "due to bad API connection at call 2. Please try again later.");
     });
 }
 
@@ -110,11 +109,11 @@ function getFiveDayForecast(weatherForecast) {
             });
             //if the response is not ok, alert the user
         } else {
-            alert('Unable to retrieve five day forecast for ' + city);
+            alert('Unable to retrieve five day forecast for ' + cityInput);
         }
         //if the fetch fails, alert the user
     }).catch(function(error) {
-        alert('Unable to retrieve five day forecast for ' + city + "due to bad API connection. Please try again later.");
+        alert('Unable to retrieve five day forecast for ' + cityInput + "due to bad API connection at call 3. Please try again later.");
     });
 }
 
@@ -189,10 +188,7 @@ function loadSavedCities() {
 window.addEventListener("DOMContentLoaded", function() {
     //add event listener to the search button
     searchButton.addEventListener("click", function() {
-        //get the city name from the input field
-        city = searchInput.value;
-        //display the city
-        displayCity(city);
+        searchCity(cityInput);
     });
 });
 
@@ -201,5 +197,5 @@ searchHistory.addEventListener("click", function(event) {
     //get the city name from the event
     var city = event.target.textContent;
     //display the city
-    displayCity(city);
+    searchCity(cityInput);
 });
