@@ -15,13 +15,13 @@ This is a weather forecast planner.
 
 ## Description 
 
-This project was assigned to me to create a weather dashboard to help with planning potential vacation destinations. This will show the current weather status as well as a future 5 day forecast. 
+This project was assigned to me to create a weather dashboard to help with planning potential vacation destinations. This will show the current weather status as well as a future 5 day forecast. I was unable to successfully generate an API call, regardless of the assistance I was offered. 
 
 [Visit the Deployed Site](https://mattschneble.github.io/weather-forecast-planner/)
 
 ## Usage 
 
-This page is to be used to test your general knowledge across a variety of subjects. This quiz has 10 questions and will award you 25 points per correct question, while deducting 15 seconds if an answer is wrong. 
+This page is to be used to get the weather information for cities across the United States 
 
 ![Screenshot of Dashboard](INSERT SCREENSHOT HERE)
 ![Screenshot of Dashboard](INSERT SCREENSHOT HERE)
